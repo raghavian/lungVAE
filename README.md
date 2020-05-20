@@ -19,6 +19,14 @@ python predict.py --data DATA_DIR --post --model saved_models/lungVAE.pt
 * Download preprocessed CXR data [from here](https://drive.google.com/open?id=1_rWIRBF9o6VE6v8upf4nTrZmZ1Nw9fbD)
 * Train the model from scratch: 
 python train.py --data DATA_DIR
+
+
+### Using preprocessed diffused masks
+* For speed up, the diffused noise masks are precomputed 
+* 200 sample masks are provided in this [file](https://drive.google.com/open?id=1j7BYeX7ll0JIfYHSReLB95dojZYSwboK)
+* Check the [dataloader](https://github.com/raghavian/lungVAE/blob/master/data/dataset.py) to create more or to compute the masks on the fly
+* It is recommended to use precomputed masks
+
 ### Usage guidelines ###
 
 * Kindly cite our publication if you use any part of the code
@@ -27,9 +35,7 @@ python train.py --data DATA_DIR
  	title={Lung Segmentation from Chest X-rays using Variational Data Imputation},
 	author={Raghavendra Selvan et al.},
  	journal={arXiv preprint arXiv:2020.00000,
-	year={2020}
-}
-
+	year={2020}}}
 ```
 
 ### Who do I talk to? ###
