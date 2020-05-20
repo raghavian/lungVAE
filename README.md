@@ -14,8 +14,11 @@ This is official Pytorch implementation of
 
 * Basic Pytorch dependency
 * Tested on Pytorch 1.3, Python 3.6 
-* How to run tests: python train.py --data DATA_DIR
-* How to predict: python predict.py --data DATA_DIR --post --model saved_models/lungVAE.pt
+* Predict using the pretrained model: 
+python predict.py --data DATA_DIR --post --model saved_models/lungVAE.pt
+* Download preprocessed CXR data [from here](https://drive.google.com/open?id=1_rWIRBF9o6VE6v8upf4nTrZmZ1Nw9fbD)
+* Train the model from scratch: 
+python train.py --data DATA_DIR
 ### Usage guidelines ###
 
 * Kindly cite our publication if you use any part of the code
@@ -32,3 +35,6 @@ This is official Pytorch implementation of
 ### Who do I talk to? ###
 
 * raghav@di.ku.dk
+
+### Thanks 
+* For the Kaggle [data](https://www.kaggle.com/kmader/pulmonary-chest-xray-abnormalities)
