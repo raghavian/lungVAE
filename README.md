@@ -14,8 +14,8 @@ This is official Pytorch implementation of
 
 * Basic Pytorch dependency
 * Tested on Pytorch 1.3, Python 3.6 
-* How to run tests: python train.py --data data_location
-* How to predict: python predict.py --data input_location --post 
+* How to run tests: python train.py --data DATA_DIR
+* How to predict: python predict.py --data DATA_DIR --post --model saved_models/lungVAE.pt
 ### Usage guidelines ###
 
 * Kindly cite our publication if you use any part of the code
