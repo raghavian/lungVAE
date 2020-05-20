@@ -3,7 +3,7 @@
 This is official Pytorch implementation of Lung Segmentation network with Variational data imputation 
 "[Lung Segmentation from Chest X-rays using Variational Data Imputation](https://arxiv.org/abs/2004.10076)", Raghavendra Selvan et al. 2020
 
-![lotenet](models/model.png = 256x)
+![lotenet](models/model.png)
 ### What is this repository for? ###
 
 * Predict lung masks from CXRs
