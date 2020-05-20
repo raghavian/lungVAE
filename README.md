@@ -19,19 +19,16 @@ This is official Pytorch implementation of
 ### Usage guidelines ###
 
 * Kindly cite our publication if you use any part of the code
-...
+```
 @article{raghav2020lungVAE,
-
  	title={Lung Segmentation from Chest X-rays using Variational Data Imputation},
-
 	author={Raghavendra Selvan et al.},
-
  	journal={arXiv preprint arXiv:2020.00000,
-
 	year={2020}
 }
-...
-``
+
+```
+
 ### Who do I talk to? ###
 
 * raghav@di.ku.dk
