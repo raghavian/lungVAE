@@ -115,6 +115,7 @@ class uVAE(nn.Module):
 
 	def decoder(self,x_enc,z=None):
 		if not self.unet:
+				### Concatenate latent vector to U-net bottleneck
 				x = self.act(self.bot21(z.unsqueeze(2)))
 				x = self.act(self.bot22(x.permute(0,2,1)))
 				x = self.act(self.bot23(x))
@@ -126,7 +127,8 @@ class uVAE(nn.Module):
 				x = self.dec5(x)
 		else:
 				x = self.dec5(x_enc[-1])
-
+		
+		### Shared decoder
 		x = torch.cat((x,x_enc[-2]),dim=1)
 		x = self.dec4(x)
 		x = torch.cat((x,x_enc[-3]),dim=1)
@@ -158,15 +160,15 @@ class uVAE(nn.Module):
 				sigma = torch.exp(log_var / 2)
 				
 				# Instantiate a diagonal Gaussian with mean=mu, std=sigma
-				# This is the conditional posterior latent distribution q(z|x,y)
+				# This is the approximate latent distribution q(z|x)
 				posterior = Independent(Normal(loc=mu,scale=sigma),1)
 				z = posterior.rsample()
 
-				# Instantiate a diagonal Gaussian with mean=mu_0, std=sigma_0
-				# This is the conditional prior distribution p(z|y)
+				# Instantiate a standard Gaussian with mean=mu_0, std=sigma_0
+				# This is the prior distribution p(z)
 				prior = Independent(Normal(loc=self.mu_0,scale=self.sigma_0),1)
 
-				# Estimate the KLD between q(z|x,y)|| p(z|y)
+				# Estimate the KLD between q(z|x)|| p(z)
 				kl = KLD(posterior,prior).sum() 	
 
 		# Outputs for MSE
