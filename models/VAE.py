@@ -39,7 +39,7 @@ class uVAE(nn.Module):
 		self.unet = unet
 
 		if not self.unet:
-			### VAE Encoder with 3 downsampling layers
+			### VAE Encoder with 4 downsampling operations
 			self.enc11 = nn.Conv2d(inCh,nhid,kernel_size=ker,padding=1)
 			self.enc12 = nn.Conv2d(nhid,nhid,kernel_size=ker,padding=1)
 
@@ -51,13 +51,13 @@ class uVAE(nn.Module):
 			self.bot11 = nn.Conv1d(16*nhid,1,kernel_size=1)
 			self.bot12 = nn.Conv1d(int((h/16)*(w/16)),2*nlatent,kernel_size=1)
 
-			### Decoder with 3 upsampling layers
+			### Decoder with 4 upsampling operations
 			self.bot21 = nn.Conv1d(nlatent,int((h/64)*(w/64)),kernel_size=1)
 			self.bot22 = nn.Conv1d(1,nhid,kernel_size=1)
 			self.bot23 = nn.Conv1d(nhid,4*nhid,kernel_size=1)
 			self.bot24 = nn.Conv1d(4*nhid,16*nhid,kernel_size=1)
 
-		### U-net Encoder with 3 downsampling layers
+		### U-net Encoder with 4 downsampling operations
 		self.uEnc11 = nn.Conv2d(inCh,nhid,kernel_size=ker,padding=1)
 		self.uEnc12 = nn.Conv2d(nhid,nhid,kernel_size=ker,padding=1)
 
@@ -102,7 +102,7 @@ class uVAE(nn.Module):
 
 	
 	def unet_encoder(self,x_in):
-		### VAE Encoder
+		### Unet Encoder
 		x = []
 		
 		x.append(self.act(self.uEnc12(self.act(self.uEnc11(x_in)))))
