@@ -7,7 +7,7 @@ This is official Pytorch implementation of
 ### What is this repository for? ###
 
 * Predict lung masks from CXRs
-* Run and reproduce results in the paper
+* Train the models described in the paper
 * v1.0
 
 ### How do I get set up? ###
