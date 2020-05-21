@@ -1,7 +1,7 @@
 # README #
 
 This is official Pytorch implementation of 
-"[Lung Segmentation from Chest X-rays using Variational Data Imputation](https://arxiv.org/abs/2004.10076)", Raghavendra Selvan et al. 2020
+"[Lung Segmentation from Chest X-rays using Variational Data Imputation](https://arxiv.org/abs/2005.10052)", Raghavendra Selvan et al. 2020
 
 ![lotenet](models/model.png)
 ### What is this repository for? ###
@@ -34,7 +34,7 @@ python train.py --data DATA_DIR
 @article{raghav2020lungVAE,
  	title={Lung Segmentation from Chest X-rays using Variational Data Imputation},
 	author={Raghavendra Selvan et al.},
- 	journal={arXiv preprint arXiv:2020.00000,
+ 	journal={arXiv preprint arXiv:2020.2005.10052,
 	year={2020}}}
 ```
 
