@@ -34,7 +34,7 @@ def makeOverlay(pred,mask):
 
 	return img
 	
-def loadDCM(f, preprocess=True,dicom=False):
+def loadDCM(f, preprocess=False,dicom=False):
 	wLoc = 512
 	### Load input dicom
 	if dicom:
@@ -144,7 +144,9 @@ files = sorted(files)
 for fIdx in range(len(files)):
 		f = files[fIdx]
 		fName = f.split('/')[-1]
-		img, roi, h, w, hLoc, wLoc, imH, imW = loadDCM(f)
+		img, roi, h, w, hLoc, wLoc, imH, imW = loadDCM(f,
+													preprocess=args.preprocess,
+													dcm=args.dicom)
 		img = img.to(device)
 		_,mask = net(img)
 		mask = torch.sigmoid(mask*roi)
