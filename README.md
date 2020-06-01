@@ -7,6 +7,7 @@ This is official Pytorch implementation of
 ### What is this repository for? ###
 
 * Predict lung masks from CXRs
+* Model is trained to predict on PA/AP views
 * Train the models described in the paper
 * v1.0
 
