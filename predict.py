@@ -24,17 +24,22 @@ import os
 plt.gray()
 	
 def loadDCM(f, preprocess=False,dicom=False):
-	
 	wLoc = 448
 	### Load input dicom
 	if dicom:
-		dcm = dcmread(f).pixel_array
+		dcmFile = dcmread(f)
+		dcm = dcmFile.pixel_array
+		dcm = dcm/dcm.max()
+		if dcmFile.PhotometricInterpretation == 'MONOCHROME1':
+			### https://dicom.innolitics.com/ciods/ct-image/image-pixel/00280004 ###
+			### When MONOCHROME1, 0->bright, 1->dark intensities
+			dcm = 1-dcm 
 	else:
 		## Load input image
 		dcm = imread(f)
+		dcm = dcm/dcm.max()
 
 	if preprocess:
-		dcm = dcm/dcm.max()
 		dcm = equalize(dcm)
 
 	if len(dcm.shape) > 2:
@@ -128,7 +133,7 @@ nParam = sum(p.numel() for p in net.parameters() if p.requires_grad)
 print("Model"+args.model.split('/')[-1]+" Number of parameters:%d"%(nParam))
 
 if args.dicom:
-	filetype = 'dcm'
+	filetype = 'DCM'
 else:
 	filetype= 'png'
 
@@ -146,7 +151,7 @@ for fIdx in range(len(files)):
 		img = img.to(device)
 		_,mask = net(img)
 		mask = torch.sigmoid(mask*roi)
-		f = save_dir+fName.replace('.'+filetype,'_mask.'+filetype)
+		f = save_dir+fName.replace('.'+filetype,'_mask.png')
 
 		saveMask(f,mask.squeeze(),h,w,hLoc,wLoc,imH,imW,args.post)
 		print("Segmenting %d/%d"%(fIdx,len(files)))
