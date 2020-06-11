@@ -1,7 +1,6 @@
 ### raghav@di.ku.dk
-### Dicom header parser
-### Currently extracts basic features and dumps them into a CSV 
-### along with the accession number
+### Convert Dicom to PNG
+### Perform histogram equalization
 
 from __future__ import division
 from __future__ import print_function
@@ -35,7 +34,6 @@ print("Found %d files with "%N+args.ext+' extension')
 if args.ext is 'dcm' or 'DCM':
 	dicom = True
 
-pdb.set_trace()
 for fIdx in range(N):
 	f = files[fIdx]
 	if dicom:
