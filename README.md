@@ -16,7 +16,7 @@ This is official Pytorch implementation of
 * Basic Pytorch dependency
 * Tested on Pytorch 1.3, Python 3.6 
 * Predict using the pretrained model: 
-python predict.py --data DATA_DIR --post --model saved_models/lungVAE.pt
+python predict.py --data DATA_DIR --model saved_models/lungVAE.pt
 * Download preprocessed CXR data [from here](https://drive.google.com/open?id=1_rWIRBF9o6VE6v8upf4nTrZmZ1Nw9fbD)
 * Train the model from scratch: 
 python train.py --data DATA_DIR
