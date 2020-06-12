@@ -23,7 +23,7 @@ from torchvision.utils import save_image
 import os
 plt.gray()
 	
-def loadDCM(f, preprocess=False,dicom=False):
+def loadDCM(f, no_preprocess=False,dicom=False):
 	wLoc = 448
 	### Load input dicom
 	if dicom:
@@ -38,8 +38,7 @@ def loadDCM(f, preprocess=False,dicom=False):
 		## Load input image
 		dcm = imread(f)
 		dcm = dcm/dcm.max()
-
-	if preprocess:
+	if not no_preprocess:
 		dcm = equalize(dcm)
 
 	if len(dcm.shape) > 2:
@@ -69,7 +68,7 @@ def loadDCM(f, preprocess=False,dicom=False):
 	pImg = pImg.unsqueeze(0).unsqueeze(0)
 	return pImg, roi, h, w, hLoc, wLoc, imH, imW
 
-def saveMask(f,img,h,w,hLoc,wLoc,imH,imgW,post=False):
+def saveMask(f,img,h,w,hLoc,wLoc,imH,imgW,no_post=False):
 	
 	img = img.data.numpy()
 	imgIp = img.copy()
@@ -82,7 +81,7 @@ def saveMask(f,img,h,w,hLoc,wLoc,imH,imgW,post=False):
 					(imH,imW),preserve_range=True)
 	imsave(f,img_as_ubyte(img>0.5))
 
-	if post:
+	if not no_post:
 		imgPost = postProcess(imgIp)
 		if w == p:
 			imgPost = resize(imgPost[np.abs(h):(h+hLoc),p:-p],
@@ -95,15 +94,15 @@ def saveMask(f,img,h,w,hLoc,wLoc,imH,imgW,post=False):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data', type=str, default='.', help='Path to input files')
-parser.add_argument('--model', type=str, default='.', help='Path to trained model')
+parser.add_argument('--model', type=str, default='saved_models/lungVAE.pt', help='Path to trained model')
 parser.add_argument('--hidden', type=int, default=16, help='Hidden units')
 parser.add_argument('--latent', type=int, default=8, help='Latent dim')
 parser.add_argument('--saveLoc', type=str, default='', help='Path to save predictions')
 parser.add_argument('--unet',action='store_true', default=False,help='Use only U-Net.')
 parser.add_argument('--dicom',action='store_true', default=False,help='DICOM inputs.')
-parser.add_argument('--post',action='store_true', default=False,help='Post process predictions')
-parser.add_argument('--preprocess',action='store_true', 
-						default=False,help='Preprocess input images')
+parser.add_argument('--no_post',action='store_true', default=False,help='Do not post process predictions')
+parser.add_argument('--no_preprocess',action='store_true', 
+						default=False,help='Do not preprocess input images')
 parser.add_argument('--padding', type=int, default=32, help='Zero padding')
 
 
@@ -130,7 +129,7 @@ if not os.path.exists(save_dir):
 	os.mkdir(save_dir)
 
 nParam = sum(p.numel() for p in net.parameters() if p.requires_grad)
-print("Model"+args.model.split('/')[-1]+" Number of parameters:%d"%(nParam))
+print("Model "+args.model.split('/')[-1]+" Number of parameters:%d"%(nParam))
 
 if args.dicom:
 	filetype = 'DCM'
@@ -146,12 +145,12 @@ for fIdx in range(len(files)):
 		f = files[fIdx]
 		fName = f.split('/')[-1]
 		img, roi, h, w, hLoc, wLoc, imH, imW = loadDCM(f,
-													preprocess=args.preprocess,
+													no_preprocess=args.no_preprocess,
 													dicom=args.dicom)
 		img = img.to(device)
 		_,mask = net(img)
 		mask = torch.sigmoid(mask*roi)
 		f = save_dir+fName.replace('.'+filetype,'_mask.png')
 
-		saveMask(f,mask.squeeze(),h,w,hLoc,wLoc,imH,imW,args.post)
+		saveMask(f,mask.squeeze(),h,w,hLoc,wLoc,imH,imW,args.no_post)
 		print("Segmenting %d/%d"%(fIdx,len(files)))
