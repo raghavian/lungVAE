@@ -1,6 +1,6 @@
 # README #
 
-This is official Pytorch implementation of 
+This is the official Pytorch implementation of 
 "[Lung Segmentation from Chest X-rays using Variational Data Imputation](https://arxiv.org/abs/2005.10052)", Raghavendra Selvan et al. 2020
 
 ![lotenet](models/model.png)
