@@ -32,13 +32,13 @@ python train.py --data DATA_DIR
 
 * Kindly cite our publication if you use any part of the code
 ```
-@article{raghav2020lungVAE,
+@inproceedings{raghav2020lungVAE,
  	title={Lung Segmentation from Chest X-rays using Variational Data Imputation},
 	author={Raghavendra Selvan and Erik B. Dam and Nicki Skafte Detlefsen and Sofus Rischel and Kaining Sheng and Mads Nielsen and Akshay Pai},
 	booktitle={ICML Workshop on The Art of Learning with Missing Values},
-	month={July}
- 	journal={arXiv preprint arXiv:2020.2005.10052,
-	year={2020}}}
+	month={July},
+ 	journal={arXiv preprint arXiv:2020.2005.10052},
+	year={2020}}
 ```
 
 ### Who do I talk to? ###
